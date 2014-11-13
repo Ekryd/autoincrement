@@ -4,11 +4,7 @@
   <groupId>test</groupId>
   <artifactId>test</artifactId>
   <version>1.2.03-SNAPSHOT</version>
-    
-  <properties>
-    <newVersion>default_test_value</newVersion>
-  </properties>
-    
+  
   <build>
     <pluginManagement>
       <plugins>
@@ -35,7 +31,7 @@
             <version>1.0.0-SNAPSHOT</version>
             <executions>
               <execution>
-                <phase>validate</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>toRelease</goal>
                 </goals>
@@ -52,7 +48,7 @@
             <version>2.1</version>
             <executions>
               <execution>
-                <phase>validate</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>set</goal>
                 </goals>
@@ -60,6 +56,7 @@
             </executions>
             <configuration>
               <newVersion>${newVersion}</newVersion>
+              <generateBackupPoms>false</generateBackupPoms>
             </configuration>
           </plugin>
             
