@@ -13,6 +13,11 @@
     <module>autoincrement-maven-plugin</module>
   </modules>
 
+  <properties>
+    <compileSource>1.6</compileSource>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <dependencies>
     <!-- Test dependencies -->
     <dependency>
@@ -45,6 +50,7 @@
         <configuration>
           <createBackupFile>false</createBackupFile>
           <predefinedSortOrder>custom_1</predefinedSortOrder>
+          <encoding>${project.build.sourceEncoding}</encoding>
           <lineSeparator>\n</lineSeparator>
           <keepBlankLines>true</keepBlankLines>
         </configuration>
@@ -56,6 +62,15 @@
             <phase>validate</phase>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>${compileSource}</source>
+          <target>${compileSource}</target>
+        </configuration>
       </plugin>
     </plugins>
   </build>
