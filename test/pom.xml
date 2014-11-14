@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>test</groupId>
   <artifactId>test</artifactId>
-  <version>1.2.03-SNAPSHOT</version>
+  <version>1.2.08-SNAPSHOT</version>
   
   <build>
     <pluginManagement>
@@ -60,6 +60,50 @@
             </configuration>
           </plugin>
             
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>toSnapshot</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>com.google.code.autoincrement</groupId>
+            <artifactId>autoincrement-maven-plugin</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <executions>
+              <execution>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>toSnapshot</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <environmentVariableName>newVersion</environmentVariableName>
+              <versionNumberPrefix>1.2.</versionNumberPrefix>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.1</version>
+            <executions>
+              <execution>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>set</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <newVersion>${newVersion}</newVersion>
+              <generateBackupPoms>false</generateBackupPoms>
+            </configuration>
+          </plugin>
+
         </plugins>
       </build>
     </profile>

@@ -2,10 +2,7 @@ package autoincrement;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.Component;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.*;
 import org.apache.maven.project.MavenProject;
 
 /**
@@ -14,18 +11,26 @@ import org.apache.maven.project.MavenProject;
  *
  * @author Bjorn Ekryd
  */
-@Mojo(name = "toRelease",
+@Mojo(name = "toSnapshot",
         threadSafe = true,
         defaultPhase = LifecyclePhase.NONE,
         requiresProject = true)
-public class ToReleaseMojo  extends AbstractMojo {
+public class ToSnapshotMojo extends AbstractMojo {
     @Component
     private MavenProject mavenProject;
     
     /** The name of the environment variable where the new version should be stored */
     @Parameter(property = "autoincrement.environmentVariableName", defaultValue = "newVersion", required = true)
     private String environmentVariableName;
-    
+
+    /** The name of the environment variable where the new version should be stored */
+    @Parameter(property = "autoincrement.increaseVersionNumber", defaultValue = "true")
+    private boolean increaseVersionNumber;
+
+    /** The prefix in the version number that should not be incremented */
+    @Parameter(property = "autoincrement.versionNumberPrefix", defaultValue = "1.0.")
+    private String versionNumberPrefix;
+
     private String versionNumber;
 
     /**
@@ -37,15 +42,29 @@ public class ToReleaseMojo  extends AbstractMojo {
     @Override
     public void execute() throws MojoFailureException {
         versionNumber = mavenProject.getVersion();
-        removeSnapshotFromVersion();
+
+        if (increaseVersionNumber) {
+            incrementVersionNumber();
+        }
+
+        addSnapshotToVersionNumber();
         storeNewVersionInEnvironment();
     }
 
-    private void removeSnapshotFromVersion() {
-        SnapshotRemover snapshotRemover = new SnapshotRemover(versionNumber);
-        snapshotRemover.process();
-        versionNumber = snapshotRemover.getVersionWithoutSnapshot();
-        getLog().debug("Version without snapshot: " + versionNumber);
+    private void incrementVersionNumber() {
+        IncrementVersion incrementVersion = IncrementVersion.withPrefix(versionNumberPrefix);
+        incrementVersion.process(versionNumber);
+        versionNumber = incrementVersion.getIncrementedVersion();
+
+        getLog().debug("Incremented version: " + versionNumber);
+    }
+
+    private void addSnapshotToVersionNumber() {
+        SnapshotAppender snapshotAppender = new SnapshotAppender(versionNumber);
+        snapshotAppender.process();
+        versionNumber = snapshotAppender.getVersionWithSnapshot();
+
+        getLog().debug("Version with snapshot: " + versionNumber);
     }
 
     private void storeNewVersionInEnvironment() {
