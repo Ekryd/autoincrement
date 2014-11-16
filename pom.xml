@@ -13,7 +13,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Autoincrement</name>
-  <description>A Maven plugin that increments the version sumner in the pom.xml file.</description>
+  <description>A Maven plugin that increments the version number in the pom.xml file.</description>
 
   <modules>
     <module>autoincrement</module>
