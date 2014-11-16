@@ -18,14 +18,14 @@ import org.apache.maven.project.MavenProject;
         threadSafe = true,
         defaultPhase = LifecyclePhase.NONE,
         requiresProject = true)
-public class ToReleaseMojo  extends AbstractMojo {
+public class ToReleaseMojo extends AbstractMojo {
     @Component
     private MavenProject mavenProject;
-    
+
     /** The name of the environment variable where the new version should be stored */
     @Parameter(property = "autoincrement.environmentVariableName", defaultValue = "newVersion", required = true)
     private String environmentVariableName;
-    
+
     private String versionNumber;
 
     /**
@@ -42,8 +42,8 @@ public class ToReleaseMojo  extends AbstractMojo {
     }
 
     private void removeSnapshotFromVersion() {
-        SnapshotRemover snapshotRemover = new SnapshotRemover(versionNumber);
-        snapshotRemover.process();
+        SnapshotRemover snapshotRemover = new SnapshotRemover();
+        snapshotRemover.process(versionNumber);
         versionNumber = snapshotRemover.getVersionWithoutSnapshot();
         getLog().debug("Version without snapshot: " + versionNumber);
     }

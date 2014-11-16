@@ -1,19 +1,24 @@
 package autoincrement;
 
 /**
+ * Append a -SNAPSHOT string to a version number.
+ * <p/>
+ * Example:
+ * <p/>
+ * Append to version '1.2.12' becomes '1.2.12-SNAPSHOT'
+ *
  * @author bjorn
  * @since 2014-11-13
  */
-public class SnapshotAppender {
+class SnapshotAppender {
     private static final String SNAPSHOT = "-SNAPSHOT";
-    private final String version;
     private String versionWithSnapshot;
 
-    public SnapshotAppender(String version) {
-        this.version = version;
+    public SnapshotAppender() {
     }
 
-    public void process() {
+    /** Process the version to append to */
+    public void process(String version) {
         if (version.endsWith(SNAPSHOT)) {
             throw new IllegalArgumentException(String.format(
                     "Version '%s' is already a snapshot version", version));
@@ -21,6 +26,7 @@ public class SnapshotAppender {
         versionWithSnapshot = version + SNAPSHOT;
     }
 
+    /** Retrieves the new version number */
     public String getVersionWithSnapshot() {
         return versionWithSnapshot;
     }

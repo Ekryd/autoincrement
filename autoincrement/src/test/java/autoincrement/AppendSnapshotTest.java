@@ -13,25 +13,25 @@ import static org.junit.Assert.assertThat;
  */
 public class AppendSnapshotTest {
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void snapshotShouldBeAddedAfterVersion() {
         String str = "1.0.00";
-        SnapshotAppender snapshotAppender = new SnapshotAppender(str);
-        snapshotAppender.process();
+        SnapshotAppender snapshotAppender = new SnapshotAppender();
+        snapshotAppender.process(str);
 
         assertThat(snapshotAppender.getVersionWithSnapshot(), is("1.0.00-SNAPSHOT"));
     }
 
     @Test
-    public void snapshotVersionSHouldNotBeAppendedAgain() {
+    public void snapshotVersionShouldNotBeAppendedAgain() {
         String str = "1.0.00-SNAPSHOT";
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Version '" + str + "' is already a snapshot version");
-        
-        SnapshotAppender snapshotAppender = new SnapshotAppender(str);
-        snapshotAppender.process();
+
+        SnapshotAppender snapshotAppender = new SnapshotAppender();
+        snapshotAppender.process(str);
     }
 }

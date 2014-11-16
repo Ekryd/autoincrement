@@ -2,7 +2,10 @@ package autoincrement;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.*;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 /**
@@ -18,7 +21,7 @@ import org.apache.maven.project.MavenProject;
 public class ToSnapshotMojo extends AbstractMojo {
     @Component
     private MavenProject mavenProject;
-    
+
     /** The name of the environment variable where the new version should be stored */
     @Parameter(property = "autoincrement.environmentVariableName", defaultValue = "newVersion", required = true)
     private String environmentVariableName;
@@ -60,8 +63,8 @@ public class ToSnapshotMojo extends AbstractMojo {
     }
 
     private void addSnapshotToVersionNumber() {
-        SnapshotAppender snapshotAppender = new SnapshotAppender(versionNumber);
-        snapshotAppender.process();
+        SnapshotAppender snapshotAppender = new SnapshotAppender();
+        snapshotAppender.process(versionNumber);
         versionNumber = snapshotAppender.getVersionWithSnapshot();
 
         getLog().debug("Version with snapshot: " + versionNumber);

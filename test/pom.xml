@@ -11,7 +11,7 @@
         <plugin>
           <groupId>com.google.code.autoincrement</groupId>
           <artifactId>autoincrement-maven-plugin</artifactId>
-          <version>0.0.1-SNAPSHOT</version>
+          <version>0.0.2-SNAPSHOT</version>
           <configuration>
             <environmentVariableName>newVersion</environmentVariableName>
             <versionNumberPrefix>1.2.</versionNumberPrefix>

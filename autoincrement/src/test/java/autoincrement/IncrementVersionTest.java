@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
  */
 public class IncrementVersionTest {
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void lastNumberInVersionShouldBeIncremented() {
