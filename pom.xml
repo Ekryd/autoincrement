@@ -2,11 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <groupId>com.google.code.autoincrement</groupId>
   <artifactId>autoincrement-plugin</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <name>Autoincrement</name>
+  <description>A Maven plugin that increments the version sumner in the pom.xml file.</description>
 
   <modules>
     <module>autoincrement</module>
@@ -42,6 +49,24 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>com.google.code.echo-maven-plugin</groupId>
+        <artifactId>echo-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>welcome</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <configuration>
+              <fromFile>welcome.txt</fromFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- SortPom will make sure that the pom-files are sorted each build -->
       <plugin>
         <groupId>com.google.code.sortpom</groupId>
@@ -74,5 +99,116 @@
       </plugin>
     </plugins>
   </build>
+
+  <!-- Misc -->
+  <url>https://code.google.com/p/autoincrement/</url>
+  <inceptionYear>2014</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>New BSD License</name>
+      <url>http://en.wikipedia.org/wiki/BSD_licenses</url>
+      <distribution>repo</distribution>
+      <comments>Whatever</comments>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>bjorn.ekryd</id>
+      <name>Björn Ekryd</name>
+      <email>bjorn.ekryd(at)gmail(dot)com</email>
+      <url>http://www.linkedin.com/in/bjornekryd</url>
+      <roles>
+        <role>Architect</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://code.google.com/p/autoincrement/</connection>
+    <developerConnection>scm:git:https://code.google.com/p/autoincrement/</developerConnection>
+    <url>http://code.google.com/p/autoincrement/source/browse/</url>
+  </scm>
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/autoincrement/issues/list</url>
+  </issueManagement>
+
+  <!-- Profiles -->
+  <profiles>
+    <profile>
+      <id>distribution</id>
+      <activation>
+        <property>
+          <name>!dev</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.4</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.8</version>
+            <configuration>
+              <minmemory>128m</minmemory>
+              <maxmemory>512</maxmemory>
+              <breakiterator>true</breakiterator>
+              <quiet>true</quiet>
+              <source>${compileSource}</source>
+              <verbose>false</verbose>
+              <linksource>true</linksource>
+              <links>
+                <!-- JSE -->
+                <link>http://download.oracle.com/javase/6/docs/api/</link>
+                <!-- Libraries -->
+                <link>http://www.junit.org/junit/javadoc/</link>
+                <link>http://www.slf4j.org/api/</link>
+              </links>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadoc</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.1.2</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
