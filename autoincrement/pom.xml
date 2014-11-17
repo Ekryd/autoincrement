@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.googlecode.autoincrement</groupId>
     <artifactId>autoincrement-plugin</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
   </parent>
 
   <artifactId>autoincrement</artifactId>

@@ -10,7 +10,7 @@
 
   <groupId>com.googlecode.autoincrement</groupId>
   <artifactId>autoincrement-plugin</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.3</version>
   <packaging>pom</packaging>
   <name>Autoincrement</name>
   <description>A Maven plugin that increments the version number in the pom.xml file.</description>
