@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.google.code.autoincrement</groupId>
+    <groupId>com.googlecode.autoincrement</groupId>
     <artifactId>autoincrement-plugin</artifactId>
     <version>0.0.2-SNAPSHOT</version>
   </parent>
@@ -12,6 +12,12 @@
   <packaging>maven-plugin</packaging>
 
   <dependencies>
+    <dependency>
+      <groupId>com.googlecode.autoincrement</groupId>
+      <artifactId>autoincrement</artifactId>
+      <version>0.0.2-SNAPSHOT</version>
+    </dependency>
+
     <!-- dependencies to annotations -->
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
@@ -39,11 +45,6 @@
       <version>3.0-alpha-2</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.google.code.autoincrement</groupId>
-      <artifactId>autoincrement</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
-    </dependency>
   </dependencies>
 
   <build>

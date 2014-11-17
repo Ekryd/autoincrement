@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.google.code.autoincrement</groupId>
+    <groupId>com.googlecode.autoincrement</groupId>
     <artifactId>autoincrement-plugin</artifactId>
     <version>0.0.2-SNAPSHOT</version>
   </parent>
